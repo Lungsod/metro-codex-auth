@@ -1,0 +1,226 @@
+/* Profile Dropdown Styles - inherits CSS variables from Navigation.css */
+.codex-auth-profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.codex-auth-profile-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--codex-border, #444);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+}
+
+.codex-auth-profile-button:hover {
+  border-color: var(--codex-primary, #646cff);
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+.codex-auth-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--codex-primary, #646cff), var(--codex-primary-hover, #535bf2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+
+.codex-auth-dropdown-arrow {
+  transition: transform 0.2s ease;
+  color: var(--codex-text-secondary, #aaa);
+}
+
+.codex-auth-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.codex-auth-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--codex-surface, #1a1a1a);
+  border: 1px solid var(--codex-border, #444);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px var(--codex-shadow, rgba(0, 0, 0, 0.3));
+  min-width: 280px;
+  z-index: 1000;
+  animation: codexAuthDropdownSlide 0.2s ease-out;
+}
+
+@keyframes codexAuthDropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.codex-auth-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.codex-auth-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--codex-primary, #646cff), var(--codex-primary-hover, #535bf2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.codex-auth-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.codex-auth-user-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.codex-auth-user-email {
+  font-size: 0.875rem;
+  color: var(--codex-text-secondary, #aaa);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.codex-auth-dropdown-divider {
+  height: 1px;
+  background: var(--codex-border, #444);
+  margin: 0 1rem;
+}
+
+.codex-auth-dropdown-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.codex-auth-user-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.codex-auth-detail-label {
+  font-size: 0.875rem;
+  color: var(--codex-text-secondary, #aaa);
+  font-weight: 500;
+  min-width: fit-content;
+}
+
+.codex-auth-detail-value {
+  font-size: 0.875rem;
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  text-align: right;
+  word-break: break-word;
+}
+
+.codex-auth-logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--codex-error, #ff6b6b);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0 0 12px 12px;
+  transition: background-color 0.2s ease;
+}
+
+.codex-auth-logout-button:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.codex-auth-logout-button svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* Light mode styles */
+@media (prefers-color-scheme: light) {
+  .codex-auth-profile-button {
+    color: #333;
+    border-color: #ddd;
+  }
+
+  .codex-auth-profile-button:hover {
+    border-color: #535bf2;
+    background-color: rgba(83, 91, 242, 0.1);
+  }
+
+  .codex-auth-dropdown-menu {
+    background: #fff;
+    border-color: #ddd;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .codex-auth-user-name {
+    color: #333;
+  }
+
+  .codex-auth-user-email {
+    color: #666;
+  }
+
+  .codex-auth-dropdown-divider {
+    background: #eee;
+  }
+
+  .codex-auth-detail-label {
+    color: #666;
+  }
+
+  .codex-auth-detail-value {
+    color: #333;
+  }
+
+  .codex-auth-logout-button:hover {
+    background-color: rgba(255, 77, 79, 0.05);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .codex-auth-dropdown-menu {
+    min-width: 260px;
+    right: -1rem;
+  }
+}

@@ -1,0 +1,212 @@
+/* Login Modal Theming - inherits CSS variables from Navigation.css */
+
+/* Login Modal Theming */
+.codex-auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.codex-auth-modal-container {
+  background-color: var(--codex-surface, #1a1a1a);
+  border: 1px solid var(--codex-border, #444);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px var(--codex-shadow, rgba(0, 0, 0, 0.3));
+  max-width: 400px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.codex-auth-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--codex-text-secondary, #aaa);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.codex-auth-modal-close:hover {
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.codex-auth-modal-header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--codex-border, #444);
+}
+
+.codex-auth-modal-logo {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.codex-auth-modal-logo img {
+  height: 48px;
+  width: auto;
+}
+
+.codex-auth-modal-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+}
+
+.codex-auth-modal-header p {
+  margin: 0;
+  color: var(--codex-text-secondary, #aaa);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.codex-auth-modal-error {
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid var(--codex-error, #ff6b6b);
+  color: var(--codex-error, #ff6b6b);
+  padding: 0.75rem;
+  margin: 1rem 2rem 0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.codex-auth-modal-form {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.codex-auth-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.codex-auth-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.codex-auth-form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--codex-border, #444);
+  border-radius: 6px;
+  background-color: var(--codex-background, #242424);
+  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.codex-auth-form-group input:focus {
+  outline: none;
+  border-color: var(--codex-primary, #646cff);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
+}
+
+.codex-auth-form-group input::placeholder {
+  color: var(--codex-text-secondary, #aaa);
+}
+
+.codex-auth-modal-submit {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--codex-primary, #646cff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.codex-auth-modal-submit:hover:not(:disabled) {
+  background-color: var(--codex-primary-hover, #535bf2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+}
+
+.codex-auth-modal-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.codex-auth-modal-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .codex-auth-modal-container {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+  
+  .codex-auth-modal-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .codex-auth-modal-form {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  .codex-auth-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .codex-auth-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .codex-auth-modal-submit {
+    color: white; /* Ensure white text on primary button in light mode */
+  }
+}
