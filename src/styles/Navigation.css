@@ -1,15 +1,15 @@
 /* CSS Variables for consistent theming */
 :root {
-  --codex-primary: #646cff;
+  --codex-primary: #AFACD7;
   --codex-primary-hover: #535bf2;
-  --codex-background: #242424;
-  --codex-surface: #1a1a1a;
+  --codex-background: #433977;
+  --codex-surface: #433977;
   --codex-border: #444;
   --codex-text: rgba(255, 255, 255, 0.87);
   --codex-text-secondary: #aaa;
   --codex-error: #ff6b6b;
   --codex-success: #51cf66;
-  --codex-shadow: rgba(0, 0, 0, 0.3);
+  --codex-shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* Navigation Theming */
@@ -75,13 +75,12 @@
 }
 
 .codex-auth-nav-link:hover {
-  color: var(--codex-primary);
-  background-color: rgba(100, 108, 255, 0.1);
+  background-color: rgb(53, 40, 80);
 }
 
 .codex-auth-nav-link.active {
   color: var(--codex-primary);
-  background-color: rgba(100, 108, 255, 0.15);
+  background-color: rgb(53, 40, 80);
 }
 
 .codex-auth-nav-link.active::after {
@@ -148,22 +147,22 @@
   }
 }
 
-/* Light mode support */
+/* 
+// Light mode support
+
 @media (prefers-color-scheme: light) {
   :root {
-    --codex-primary: #646cff;
-    --codex-primary-hover: #535bf2;
-    --codex-background: #ffffff;
-    --codex-surface: #f9f9f9;
-    --codex-border: #e5e5e5;
-    --codex-text: #213547;
-    --codex-text-secondary: #666;
-    --codex-error: #d63031;
-    --codex-success: #00b894;
-    --codex-shadow: rgba(0, 0, 0, 0.1);
+  --codex-primary: #646cff;
+  --codex-primary-hover: #535bf2;
+  --codex-background: #433977;
+  --codex-surface: #433977;
+  --codex-border: #444;
+  --codex-text: rgba(255, 255, 255, 0.87);
+  --codex-text-secondary: #aaa;
+  --codex-error: #ff6b6b;
+  --codex-success: #51cf66;
+  --codex-shadow: rgba(0, 0, 0, 0.1);
   }
+} 
   
-  .codex-auth-navigation {
-    background-color: rgba(249, 249, 249, 0.9);
-  }
-}
+*/

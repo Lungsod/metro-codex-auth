@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import './LoginModal.css';
+import '../styles/LoginModal.css';
 
 export interface LoginModalProps {
   isOpen: boolean;

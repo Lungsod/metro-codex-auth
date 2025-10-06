@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import './ProfileDropdown.css';
+import '../styles/ProfileDropdown.css';
 
 export interface ProfileDropdownProps {
   onLoginClick?: () => void;

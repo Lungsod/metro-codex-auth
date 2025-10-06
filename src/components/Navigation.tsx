@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { ProfileDropdown } from './ProfileDropdown';
-import './Navigation.css';
+import '../styles/Navigation.css';
 
 export interface NavigationLink {
   label: string;
