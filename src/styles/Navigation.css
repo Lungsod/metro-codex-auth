@@ -7,6 +7,7 @@
   --codex-background: #433977;
   --codex-background-input: #eee;
   --codex-surface: #433977;
+  --codex-surface-textbg: #1a1a1a;
   --codex-border: #444;
   --codex-text: rgba(255, 255, 255, 0.87);
   --codex-text-secondary: #aaa;
@@ -31,7 +32,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
   height: 64px;
@@ -76,6 +76,8 @@
   border-radius: 6px;
   transition: all 0.2s ease;
   position: relative;
+  height: 30px;
+  align-content: center;
 }
 
 .codex-auth-nav-link:hover {
@@ -83,7 +85,7 @@
 }
 
 .codex-auth-nav-link.active {
-  color: var(--codex-primary);
+  color: var(--codex-text);
   background-color: rgb(53, 40, 80);
 }
 
@@ -93,9 +95,9 @@
   bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
+  width: 90%;
   height: 2px;
-  background-color: var(--codex-primary);
+  background-color: var(--codex-text);
   border-radius: 1px;
 }
 
