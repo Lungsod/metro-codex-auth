@@ -26,7 +26,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--codex-primary, #646cff), var(--codex-primary-hover, #535bf2));
+  background: var(--codex-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,7 +80,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--codex-secondary);
+  background: linear-gradient(135deg, var(--codex-primary, #646cff), var(--codex-primary-hover, #535bf2));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,10 +89,6 @@
   color: white;
   text-transform: uppercase;
   flex-shrink: 0;
-}
-
-.codex-auth-user-avatar:hover {
-  background: var(--codex-secondary-hover);
 }
 
 .codex-auth-user-info {
