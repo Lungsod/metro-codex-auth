@@ -1,7 +1,9 @@
 /* CSS Variables for consistent theming */
 :root {
-  --codex-primary: #AFACD7;
+  --codex-primary: #646cff;
   --codex-primary-hover: #535bf2;
+  --codex-secondary: #AFACD7;
+  --codex-secondary-hover: #9a97c9;
   --codex-background: #433977;
   --codex-surface: #433977;
   --codex-border: #444;
@@ -105,8 +107,8 @@
 .codex-auth-login-button {
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  border: 1px solid var(--codex-primary);
-  background-color: var(--codex-primary);
+  border: 1px solid var(--codex-secondary);
+  background-color: var(--codex-secondary);
   color: white;
   font-weight: 500;
   cursor: pointer;
@@ -114,8 +116,8 @@
 }
 
 .codex-auth-login-button:hover {
-  background-color: var(--codex-primary-hover);
-  border-color: var(--codex-primary-hover);
+  background-color: var(--codex-secondary-hover);
+  border-color: var(--codex-secondary-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
 }

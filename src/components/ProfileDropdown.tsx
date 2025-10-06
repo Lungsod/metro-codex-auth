@@ -48,8 +48,7 @@ export const ProfileDropdown = ({ onLoginClick }: ProfileDropdownProps) => {
 
   if (!isAuthenticated) {
     return (
-      <button className="codex-auth-login-button" onClick={handleLogin}>
-        Login
+      <button className="codex-auth-profile-avatar" onClick={handleLogin}>
       </button>
     );
   }
