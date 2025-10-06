@@ -132,8 +132,8 @@
   padding: 0.75rem;
   border: 1px solid var(--codex-border, #444);
   border-radius: 6px;
-  background-color: var(--codex-background, #eee);
-  color: var(--codex-text, rgba(0, 0, 0, 0.87));
+  background-color: var(--codex-background-input, #eee);
+  color: var(--codex-text-input, rgba(0, 0, 0, 0.87));
   font-size: 1rem;
   transition: all 0.2s ease;
   box-sizing: border-box;
