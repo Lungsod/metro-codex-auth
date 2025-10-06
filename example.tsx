@@ -3,7 +3,8 @@ import {
   AuthProvider, 
   Navigation, 
   LoginModal, 
-  useAuth 
+  useAuth,
+  Logo
 } from '@smartmetro/codex-auth';
 
 // Example usage in your Codex Home app
@@ -21,9 +22,7 @@ function CodexHomeApp() {
     navLinks.push({ label: 'Manager', href: '/manager' });
   }
 
-  const logo = (
-    <img src="/vite.svg" alt="SMART METRO Codex" height="40" />
-  );
+  const logo = <Logo height={40} />;
 
   return (
     <div>
