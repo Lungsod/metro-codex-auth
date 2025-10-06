@@ -4,6 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import image from '@rollup/plugin-image';
 import { readFileSync } from 'fs';
 
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
@@ -34,6 +35,7 @@ export default [
         inject: true,
         minimize: true,
       }),
+      image(),
     ],
     external: ['react', 'react-dom'],
   },
