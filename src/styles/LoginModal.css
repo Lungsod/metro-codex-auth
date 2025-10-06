@@ -122,7 +122,7 @@
 .codex-auth-form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  color: var(--codex-text-secondary, rgba(255, 255, 255, 0.87));
   font-weight: 500;
   font-size: 0.875rem;
 }
@@ -132,8 +132,8 @@
   padding: 0.75rem;
   border: 1px solid var(--codex-border, #444);
   border-radius: 6px;
-  background-color: var(--codex-background, #242424);
-  color: var(--codex-text, rgba(255, 255, 255, 0.87));
+  background-color: var(--codex-background, #eee);
+  color: var(--codex-text, rgba(0, 0, 0, 0.87));
   font-size: 1rem;
   transition: all 0.2s ease;
   box-sizing: border-box;

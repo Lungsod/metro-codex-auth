@@ -7,11 +7,12 @@
   --codex-background: #433977;
   --codex-surface: #433977;
   --codex-border: #444;
-  --codex-text: rgba(255, 255, 255, 0.87);
+  --codex-text: rgba(0, 0, 0, 0.87);
   --codex-text-secondary: #aaa;
   --codex-error: #ff6b6b;
   --codex-success: #51cf66;
   --codex-shadow: rgba(0, 0, 0, 0.1);
+  --codex-input: #eee;
 }
 
 /* Navigation Theming */
