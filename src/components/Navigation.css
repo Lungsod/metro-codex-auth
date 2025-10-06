@@ -31,6 +31,7 @@
   margin: 0 auto;
   padding: 0 1rem;
   height: 64px;
+  position: relative;
 }
 
 .codex-auth-nav-logo {
@@ -58,8 +59,9 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  flex: 1;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .codex-auth-nav-link {
