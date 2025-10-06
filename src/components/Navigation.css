@@ -51,8 +51,7 @@
 }
 
 .codex-auth-logo-link img {
-  height: 32px;
-  width: auto;
+  display: block;
 }
 
 .codex-auth-nav-links {
