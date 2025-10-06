@@ -30,7 +30,7 @@ import App from './App';
 
 function Root() {
   return (
-    <AuthProvider apiBaseUrl="/manager">
+    <AuthProvider apiBaseUrl="">
       <App />
     </AuthProvider>
   );
@@ -43,7 +43,7 @@ export default Root;
 
 ```tsx
 import React, { useState } from 'react';
-import { Navigation, LoginModal, useAuth } from '@smartmetro/codex-auth';
+import { Logo, Navigation, LoginModal, useAuth } from '@smartmetro/codex-auth';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -51,13 +51,14 @@ function App() {
 
   const navLinks = [
     { label: 'Digital Twin', href: '/twin' },
-    { label: 'Insights', href: '/insights' },
-    { label: 'Manager', href: '/manager', active: true },
+    { label: 'Insights', href: '/insights', active: true },
   ];
 
-  const logo = (
-    <img src="/logo.svg" alt="SMART METRO" height="40" />
-  );
+  if (isAuthenticated) {
+    navLinks.push({ label: "Manager", href: "/manager" });
+  }
+
+  const logo = <Logo />;
 
   return (
     <div>

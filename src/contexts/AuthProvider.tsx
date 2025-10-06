@@ -55,7 +55,7 @@ const getUserFromToken = (token: string): User | null => {
   }
 };
 
-export const AuthProvider = ({ children, apiBaseUrl = '/manager' }: AuthProviderProps) => {
+export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
