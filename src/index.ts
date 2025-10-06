@@ -1,3 +1,8 @@
+// Import styles
+import './components/Navigation.css';
+import './components/LoginModal.css';
+import './components/ProfileDropdown.css';
+
 // Export all components
 export { Navigation } from './components/Navigation';
 export { LoginModal } from './components/LoginModal';
