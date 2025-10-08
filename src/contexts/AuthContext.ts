@@ -7,6 +7,8 @@ export interface User {
   email: string;
   name: string;
   user_id: number;
+  assigned_units?: string[];
+  assigned_sectors?: string[];
 }
 
 export interface AuthContextType {

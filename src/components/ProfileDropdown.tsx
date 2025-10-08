@@ -117,15 +117,37 @@ export const ProfileDropdown = ({ onLoginClick }: ProfileDropdownProps) => {
               <span className="codex-auth-detail-label">Username:</span>
               <span className="codex-auth-detail-value">{user?.username}</span>
             </div>
-            <div className="codex-auth-user-detail">
-              <span className="codex-auth-detail-label">User Type:</span>
-              <span className="codex-auth-detail-value">{user?.user_type}</span>
-            </div>
-            <div className="codex-auth-user-detail">
-              <span className="codex-auth-detail-label">ID:</span>
-              <span className="codex-auth-detail-value">{user?.user_id}</span>
-            </div>
           </div>
+
+          {(user?.assigned_units && user.assigned_units.length > 0) || 
+           (user?.assigned_sectors && user.assigned_sectors.length > 0) ? (
+            <>
+              <div className="codex-auth-dropdown-divider"></div>
+
+              <div className="codex-auth-dropdown-content">
+                {user?.assigned_units && user.assigned_units.length > 0 && (
+                  <div className="codex-auth-user-detail">
+                    <span className="codex-auth-detail-label">
+                      {user.assigned_units.length === 1 ? 'Unit:' : 'Units:'}
+                    </span>
+                    <span className="codex-auth-detail-value">
+                      {user.assigned_units.join(', ')}
+                    </span>
+                  </div>
+                )}
+                {user?.assigned_sectors && user.assigned_sectors.length > 0 && (
+                  <div className="codex-auth-user-detail">
+                    <span className="codex-auth-detail-label">
+                      {user.assigned_sectors.length === 1 ? 'Sector:' : 'Sectors:'}
+                    </span>
+                    <span className="codex-auth-detail-value">
+                      {user.assigned_sectors.join(', ')}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : null}
 
           <div className="codex-auth-dropdown-divider"></div>
 
