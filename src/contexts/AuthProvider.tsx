@@ -17,6 +17,8 @@ interface TokenPayload {
   email: string;
   name: string;
   user_id: number;
+  assigned_units?: string[];
+  assigned_sectors?: string[];
   exp: number;
   iat: number;
   jti: string;
@@ -47,7 +49,9 @@ const getUserFromToken = (token: string): User | null => {
       username: decoded.username,
       email: decoded.email,
       name: decoded.name,
-      user_id: decoded.user_id
+      user_id: decoded.user_id,
+      assigned_units: decoded.assigned_units,
+      assigned_sectors: decoded.assigned_sectors
     };
   } catch (error) {
     console.error('Failed to decode token:', error);
@@ -73,7 +77,9 @@ export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) =
         username: response.data.username,
         email: response.data.email,
         name: response.data.name || response.data.full_name || `${response.data.first_name || ''} ${response.data.last_name || ''}`.trim(),
-        user_type: response.data.user_type || 'user'
+        user_type: response.data.user_type || 'user',
+        assigned_units: response.data.assigned_units,
+        assigned_sectors: response.data.assigned_sectors
       };
     } catch (error) {
       return null;
