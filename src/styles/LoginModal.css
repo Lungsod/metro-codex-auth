@@ -145,6 +145,35 @@
   box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
 }
 
+.codex-auth-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.codex-auth-password-wrapper input {
+  padding-right: 2.75rem;
+}
+
+.codex-auth-password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--codex-text-secondary, #aaa);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.codex-auth-password-toggle:hover {
+  color: #ccc;
+}
+
 .codex-auth-form-group input::placeholder {
   color: var(--codex-text-secondary, #aaa);
 }
