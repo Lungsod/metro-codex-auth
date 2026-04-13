@@ -90,7 +90,7 @@
   background-color: rgb(53, 40, 80);
 }
 
-.codex-auth-nav-link.active::after {
+/* .codex-auth-nav-link.active::after {
   content: '';
   position: absolute;
   bottom: -1px;
@@ -100,7 +100,7 @@
   height: 2px;
   background-color: var(--codex-text);
   border-radius: 1px;
-}
+} */
 
 .codex-auth-nav-profile {
   display: flex;

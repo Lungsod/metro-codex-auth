@@ -8,6 +8,8 @@ import { AuthContext, type User } from './AuthContext';
 export interface AuthProviderProps {
   children: ReactNode;
   apiBaseUrl?: string;
+  blockWhileLoading?: boolean;
+  loadingFallback?: ReactNode;
 }
 
 // Define the structure of your JWT token payload
@@ -27,11 +29,21 @@ interface TokenPayload {
 
 // Cookie configuration
 const COOKIE_OPTIONS = {
-  secure: process.env.NODE_ENV === 'production',
+  secure: typeof window !== 'undefined' ? window.location.protocol === 'https:' : false,
   sameSite: 'strict' as const,
   path: '/',
   expires: 7
 };
+
+const AUTH_RETRY_WINDOW_MS = 10_000;
+const AUTH_RETRY_INTERVAL_MS = 1_000;
+
+type TokenValidationResult =
+  | { status: 'valid'; user: User }
+  | { status: 'invalid' }
+  | { status: 'error' };
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Helper function to decode token and extract user info
 const getUserFromToken = (token: string): User | null => {
@@ -59,13 +71,25 @@ const getUserFromToken = (token: string): User | null => {
   }
 };
 
-export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) => {
+export const AuthProvider = ({
+  children,
+  apiBaseUrl = '',
+  blockWhileLoading = true,
+  loadingFallback
+}: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const clearAuthState = () => {
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
   // Validate token with server and get updated user info
-  const validateTokenWithServer = async (token: string): Promise<User | null> => {
+  const validateTokenWithServer = async (token: string): Promise<TokenValidationResult> => {
     try {
       const response = await axios.get(`${apiBaseUrl}/api/accounts/me/`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -73,17 +97,50 @@ export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) =
       
       // Return user data from server response
       return {
-        user_id: response.data.id || response.data.user_id,
-        username: response.data.username,
-        email: response.data.email,
-        name: response.data.name || response.data.full_name || `${response.data.first_name || ''} ${response.data.last_name || ''}`.trim(),
-        user_type: response.data.user_type || 'user',
-        assigned_units: response.data.assigned_units,
-        assigned_sectors: response.data.assigned_sectors
+        status: 'valid',
+        user: {
+          user_id: response.data.id || response.data.user_id,
+          username: response.data.username,
+          email: response.data.email,
+          name: response.data.name || response.data.full_name || `${response.data.first_name || ''} ${response.data.last_name || ''}`.trim(),
+          user_type: response.data.user_type || 'user',
+          assigned_units: response.data.assigned_units,
+          assigned_sectors: response.data.assigned_sectors
+        }
       };
     } catch (error) {
-      return null;
+      if (axios.isAxiosError(error)) {
+        const statusCode = error.response?.status;
+
+        if (statusCode === 401 || statusCode === 403) {
+          return { status: 'invalid' };
+        }
+      }
+
+      return { status: 'error' };
     }
+  };
+
+  const validateTokenWithRetry = async (token: string): Promise<TokenValidationResult> => {
+    const startTime = Date.now();
+    let lastResult: TokenValidationResult = { status: 'error' };
+
+    while (Date.now() - startTime < AUTH_RETRY_WINDOW_MS) {
+      lastResult = await validateTokenWithServer(token);
+
+      if (lastResult.status !== 'error') {
+        return lastResult;
+      }
+
+      const remainingTime = AUTH_RETRY_WINDOW_MS - (Date.now() - startTime);
+      if (remainingTime <= 0) {
+        break;
+      }
+
+      await wait(Math.min(AUTH_RETRY_INTERVAL_MS, remainingTime));
+    }
+
+    return lastResult;
   };
 
   // Check if user is already authenticated on load
@@ -97,26 +154,20 @@ export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) =
         const tokenUserData = getUserFromToken(accessToken);
         
         if (tokenUserData) {
-          // Token is valid locally, now validate with server and get updated info
-          const serverUserData = await validateTokenWithServer(accessToken);
+          // Token is valid locally, now validate with server and retry transient failures for 10s
+          const validationResult = await validateTokenWithRetry(accessToken);
           
-          if (serverUserData) {
+          if (validationResult.status === 'valid') {
             // Use server data as it's more up-to-date
             setIsAuthenticated(true);
-            setUser(serverUserData);
+            setUser(validationResult.user);
           } else {
-            // Server rejected token - clean up
-            Cookies.remove('access_token');
-            Cookies.remove('refresh_token');
-            setIsAuthenticated(false);
-            setUser(null);
+            // Server rejected token or retry window elapsed due to repeated errors
+            clearAuthState();
           }
         } else {
           // Token is invalid or expired locally
-          Cookies.remove('access_token');
-          Cookies.remove('refresh_token');
-          setIsAuthenticated(false);
-          setUser(null);
+          clearAuthState();
         }
       }
       
@@ -156,18 +207,32 @@ export const AuthProvider = ({ children, apiBaseUrl = '' }: AuthProviderProps) =
   };
 
   const logout = () => {
-    // Remove cookies
-    Cookies.remove('access_token');
-    Cookies.remove('refresh_token');
-    
-    // Update state
-    setIsAuthenticated(false);
-    setUser(null);
+    clearAuthState();
   };
+
+  const defaultLoadingBlocker = (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f8fafc',
+        color: '#0f172a',
+        fontSize: '1rem',
+        fontWeight: 500,
+        letterSpacing: '0.02em'
+      }}
+    >
+      Checking authentication...
+    </div>
+  );
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, user, isLoading }}>
-      {children}
+      {isLoading && blockWhileLoading ? loadingFallback ?? defaultLoadingBlocker : children}
     </AuthContext.Provider>
   );
 };
